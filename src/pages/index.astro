@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { motion } from "framer-motion"
+import Tech from "../components/Tech"
+import {projects} from "../lib/projects"
+---
+
+<Layout title="lassejlv">
+
+
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} client:visible>
+        <h1 class="text-3xl font-bold italic">hi 👋</h1>
+          <p>
+            my name is lasse and i'm a full-stack web developer with 5+ years experience. i'm from denmark, based in aalborg, currently going to
+            school at <a href="https://www.techcollege.dk">tech college</a> in aalborg.
+          </p>
+
+          <img
+                src="/lasse.jpg"
+                alt="lasse"
+                class="mt-5 rounded-full grayscale hover:grayscale-0 transition duration-300 ease-in-out cursor-move"
+                width={200}
+                height={200}
+                loading="lazy"
+            />
+
+            <div class="my-3">
+                <h1 class="text-2xl font-bold">technologies i work with</h1>
+
+                <Tech client:idle />
+            </div>
+
+            <div class="my-3">
+                <h1 class="text-2xl font-bold">contact</h1>
+                <p class="mt-4">
+                    you can contact me on <a href="https://twitter.com/lassejlv">twitter</a> or{' '}
+                    <a href="mailto:mail@lassejlv.dk">email</a>.
+                    <br />
+                    contact me if you got any questions or need a developer for your project.
+                </p>
+            </div>
+
+
+            <div class="my-3">
+                   <h1 class="text-2xl font-bold">projects</h1>
+
+                <ul class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                 {projects.map((project) => (
+                       <li class="mt-2 bg-zinc-800 p-5 rounded-md">
+                        <h2 class="text-xl font-bold">{project.name}</h2>
+                        <p>{project.description}</p>
+                        <a href={project.link}>go to project</a>
+                     </li>
+                  ))}
+                </ul>
+            </div>
+            <footer class="mt-5">
+                <p>
+                  made with ❤️ by lasse
+                 <br />© {new Date().getFullYear()}
+                </p>
+            </footer>
+    </motion.div>
+</Layout>
