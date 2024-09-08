@@ -30,7 +30,7 @@ export const projects: Project[] = [
   },
   {
     name: 'lassejlv.dk',
-    description: 'My personal website. Built with React, Tailwind CSS and Framer Motion.',
+    description: 'My personal website. Built with Astro, Tailwind CSS and Framer Motion.',
     link: 'https://github.com/lassejlv/portfolio',
   },
 ];
