@@ -52,10 +52,7 @@ form.onsubmit = async (event) => {
   event.preventDefault();
 
   const formData = new FormData(form);
-  const name = formData.get("name") as string;
-  const email = formData.get("email") as string;
-  const message = formData.get("message") as string;
-  const ip =  await userIp();
+  const values = Object.fromEntries(formData.entries()) as { name: string, email: string, message: string };
 
   
   const promise = new Promise(async (res, rej) => {
@@ -63,12 +60,7 @@ form.onsubmit = async (event) => {
     button.disabled = true;
     button.innerText = "Loading..."
 
-    const response = await actions.sendContactWebhook({
-      name,
-      email,
-      message, 
-      ip_address: ip
-    });
+    const response = await actions.sendContactWebhook(values);
 
     button.disabled = false;
     button.innerText = "Submit"
