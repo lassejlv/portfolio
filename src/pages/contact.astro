@@ -1,0 +1,88 @@
+---
+import Layout from "../layouts/Layout.astro"
+---
+
+<Layout title="lassejlv - contact">
+
+  <a href="/">
+    Go back
+  </a>
+
+  <form class="flex flex-col gap-4" id="contact">
+
+    <div class="flex flex-col my-4">
+      <label for="name" class="text-lg">Name</label>
+      <input type="text" id="name" name="name" class="p-2 rounded-md" />
+    </div>
+
+    <div class="flex flex-col  my-4">
+      <label for="email" class="text-lg">Email</label>
+      <input type="email" id="email" name="email" class="p-2 rounded-md" />
+    </div>
+
+    <div class="flex flex-col  my-4">
+      <label for="message" class="text-lg">Message</label>
+      <textarea id="message" name="message" class="p-2 rounded-md"></textarea>
+    </div>
+
+    <button type="submit" id="submit-button">Send</button>
+  </form>
+
+</Layout>
+
+<script>
+
+import { actions } from "astro:actions";
+import { toast } from "sonner";
+import ky from "ky";
+
+const userIp = async (): Promise<string> => {
+  const response = await ky.get("https://api.ipify.org?format=json").json<{ ip: string}>();
+  const ip = response.ip;
+  console.log(ip);
+  return ip;
+}
+
+
+const form = document.getElementById('contact') as HTMLFormElement;
+const button = document.getElementById("submit-button") as HTMLButtonElement;
+
+
+form.onsubmit = async (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(form);
+  const name = formData.get("name") as string;
+  const email = formData.get("email") as string;
+  const message = formData.get("message") as string;
+  const ip =  await userIp();
+
+  
+  const promise = new Promise(async (res, rej) => {
+
+    button.disabled = true;
+    button.innerText = "Loading..."
+
+    const response = await actions.sendContactWebhook({
+      name,
+      email,
+      message, 
+      ip_address: ip
+    });
+
+    button.disabled = false;
+    button.innerText = "Submit"
+
+    if (response.error) return rej(response.error.message)
+    else return res(true)
+  })
+
+  
+  toast.promise(promise, {
+    loading: "Loading...",
+    success: "Submitted! You will here from me soon!",
+    error: (err) => `${err}`
+  })
+}
+
+</script>
