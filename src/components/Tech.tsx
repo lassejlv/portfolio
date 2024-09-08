@@ -27,6 +27,7 @@ import {
   SiShadcnui,
   SiTurso,
   SiZedindustries,
+  SiAstro,
 } from 'react-icons/si';
 import CoolifyIcon from './CoolifyIcon';
 
@@ -61,6 +62,10 @@ const techs: Tech[] = [
   {
     name: 'Next.js',
     icon: <SiNextdotjs className="text-white" size={size} />,
+  },
+  {
+    name: 'Astro',
+    icon: <SiAstro className="text-orange-500" size={size} />,
   },
   {
     name: 'Shadcn UI',
