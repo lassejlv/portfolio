@@ -7,9 +7,11 @@ export const onRequest = defineMiddleware(async (ctx, next) => {
   if (isAction) {
     const ip = ctx.clientAddress.split(',')[0];
 
-    const hasKey = await redis.get(`ip:${ip}`);
+    const rateLimitTime = 5000 * 60; // 5 minutes
+
+    const hasKey = await redis.get(`rate_limit:${ip}`);
     if (hasKey) return Response.json({ message: 'Rate limited. Please take it easy.' }, { status: 429 });
-    else await redis.set(`ip:${ip}`, true, 'EX', 60 * 1000);
+    else await redis.set(`ip:${ip}`, true, 'EX', rateLimitTime);
 
     return next();
   }
