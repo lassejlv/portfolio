@@ -6,7 +6,6 @@ export const onRequest = defineMiddleware(async (ctx, next) => {
 
   if (isAction) {
     const ip = ctx.clientAddress.split(',')[0];
-    console.log(ip);
 
     const hasKey = await redis.get(`ip:${ip}`);
     if (hasKey) return Response.json({ message: 'Rate limited. Please take it easy.' }, { status: 429 });
