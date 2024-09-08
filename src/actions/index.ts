@@ -2,17 +2,11 @@ import { ActionError, defineAction } from 'astro:actions';
 import { z } from 'astro:content';
 import { REDIS_URL, WEBHOOK_URL } from 'astro:env/server';
 import Redis from 'ioredis';
-import rateLimit from 'lambda-rate-limiter';
 
 // @ts-ignore
 import { Webhook, MessageBuilder } from 'discord-webhook-node';
 
-const redis = new Redis(REDIS_URL);
-
-const limiter = rateLimit({
-  interval: 60 * 1000,
-  uniqueTokenPerInterval: 500,
-});
+export const redis = new Redis(REDIS_URL);
 
 const inputSchema = z.object({
   name: z.string().min(3).max(50),
@@ -27,13 +21,6 @@ export const server = {
     input: inputSchema,
     handler: async (data) => {
       try {
-        if (!data.ip_address) throw new Error('Missing ip_address');
-
-        const hasKey = await redis.get(`ip:${data.ip_address}`);
-        if (hasKey) throw new Error('Rate limited. Please take it easy.');
-
-        await redis.set(`ip:${data.ip_address}`, true, 'EX', 60 * 1000);
-
         const hook = new Webhook(WEBHOOK_URL);
 
         const embed = new MessageBuilder()
