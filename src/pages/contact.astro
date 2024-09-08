@@ -34,15 +34,6 @@ import Layout from "../layouts/Layout.astro"
 
 import { actions } from "astro:actions";
 import { toast } from "sonner";
-import ky from "ky";
-
-const userIp = async (): Promise<string> => {
-  const response = await ky.get("https://api.ipify.org?format=json").json<{ ip: string}>();
-  const ip = response.ip;
-  console.log(ip);
-  return ip;
-}
-
 
 const form = document.getElementById('contact') as HTMLFormElement;
 const button = document.getElementById("submit-button") as HTMLButtonElement;
