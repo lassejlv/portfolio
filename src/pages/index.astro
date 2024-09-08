@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import { motion } from "framer-motion"
 import Tech from "../components/Tech"
 import { projects } from "../lib/projects"
+import { SiAstro } from "react-icons/si";
+
 ---
 
 <Layout title="lassejlv">
@@ -57,6 +59,11 @@ import { projects } from "../lib/projects"
                   made with ❤️ by lasse
                  <br />© {new Date().getFullYear()}
                 </p>
+
+                <p>
+                    <a href="https://astro.build" class="flex items-center mt-2 gap-2">
+                        <SiAstro  /> build with <span class="font-bold">astro</span>
+                    </a>
             </footer>
     </motion.div>
 </Layout>
