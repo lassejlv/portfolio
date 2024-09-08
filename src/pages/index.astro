@@ -2,12 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import { motion } from "framer-motion"
 import Tech from "../components/Tech"
-import {projects} from "../lib/projects"
+import { projects } from "../lib/projects"
 ---
 
 <Layout title="lassejlv">
-
-
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} client:visible>
         <h1 class="text-3xl font-bold italic">hi 👋</h1>
           <p>
