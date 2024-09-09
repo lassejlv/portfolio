@@ -1,14 +1,6 @@
 {
   "name": "portfolio-astro",
-  "type": "module",
   "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
     "@astrojs/node": "^8.3.3",
@@ -29,7 +21,12 @@
     "tailwindcss": "^3.4.10",
     "typescript": "^5.5.4"
   },
-  "devDependencies": {
-    "@types/lambda-rate-limiter": "^3.0.2"
-  }
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "type": "module"
 }
