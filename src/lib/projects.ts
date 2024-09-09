@@ -4,7 +4,6 @@ interface Project {
   link: string;
 }
 
-
 export const projects: Project[] = [
   {
     name: 'HRT Stack',

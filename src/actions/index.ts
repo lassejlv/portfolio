@@ -1,12 +1,9 @@
 import { ActionError, defineAction } from 'astro:actions';
 import { z } from 'astro:content';
-import { REDIS_URL, WEBHOOK_URL } from 'astro:env/server';
-import Redis from 'ioredis';
+import { WEBHOOK_URL } from 'astro:env/server';
 
 // @ts-ignore
 import { Webhook, MessageBuilder } from 'discord-webhook-node';
-
-export const redis = new Redis(REDIS_URL);
 
 const inputSchema = z.object({
   name: z.string().min(3).max(50),

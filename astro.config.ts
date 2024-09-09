@@ -19,7 +19,6 @@ export default defineConfig({
     env: {
       schema: {
         WEBHOOK_URL: envField.string({ access: 'secret', context: 'server' }),
-        REDIS_URL: envField.string({ access: 'secret', context: 'server' }),
       },
     },
   },
