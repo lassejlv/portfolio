@@ -1,0 +1,35 @@
+---
+interface NavbarItems {
+  label: string;
+  href: string;
+}
+
+const items: NavbarItems[] = [
+{
+  label: 'home',
+  href: '/'
+}, 
+{
+
+  label: 'projects',
+  href: '/projects'
+
+}, 
+{
+  label: 'contact me',
+  href: '/contact'
+}]
+---
+
+<nav class="flex justify-between items-center py-4">
+    <div>
+        <a href="/" class="text-xl font-bold">lassejlv</a>
+    </div>
+
+    <div class="flex items-center gap-4">
+        {items.map((item) => (
+            <a href={item.href}>{item.label}</a>
+        ))}
+    </div>
+</nav>
+

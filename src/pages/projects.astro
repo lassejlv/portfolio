@@ -1,0 +1,23 @@
+---
+import PageAnimation from "../components/PageAnimation.astro"
+import Layout from "../layouts/Layout.astro"
+import { projects } from "../lib/projects"
+---
+
+<Layout title="Projects">
+  <PageAnimation>
+<div class="my-3">
+    <h1 class="text-2xl font-bold">projects</h1>
+
+<ul class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+  {projects.map((project) => (
+        <li class="mt-2 bg-zinc-800 p-5 rounded-md">
+         <h2 class="text-xl font-bold">{project.name}</h2>
+         <p>{project.description}</p>
+         <a href={project.link}>go to project</a>
+      </li>
+   ))}
+ </ul>
+</div>
+</PageAnimation>
+</Layout>

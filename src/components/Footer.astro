@@ -1,0 +1,26 @@
+---
+import { SiAstro, SiX } from 'react-icons/si';
+import { CgMail as CiMail } from 'react-icons/cg';
+---
+
+<footer class="mt-5">
+  <p>
+    made with ❤️ by lasse
+    <br />© {new Date().getFullYear()}
+  </p>
+
+  <div class="flex items-center mt-2 gap-2">
+    <a href="https://twitter.com/lassejlv" class="flex items-center mt-2 gap-2">
+      <SiX />
+    </a>
+    <a href="mailto:mail@lassejlv.dk" class="flex items-center mt-2 gap-2">
+      <CiMail size={25} />
+    </a>
+  </div>
+
+  <p>
+    <a href="https://astro.build" class="flex items-center mt-2 gap-2">
+      <SiAstro /> build with <span class="font-bold">astro</span>
+    </a>
+  </p>
+</footer>

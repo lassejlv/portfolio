@@ -1,81 +1,70 @@
 ---
-import RequiredDot from "../components/RequiredDot.astro"
-import Layout from "../layouts/Layout.astro"
+import PageAnimation from '../components/PageAnimation.astro';
+import RequiredDot from '../components/RequiredDot.astro';
+import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="lassejlv - contact">
+  <PageAnimation>
+    <form class="flex flex-col gap-4" id="contact">
+      <div class="flex flex-col my-4">
+        <label for="name" class="text-lg">Name <RequiredDot /></label>
+        <input type="text" id="name" name="name" class="p-2 rounded-md" placeholder="Enter your name" required />
+      </div>
 
-  <a href="/">
-    Go back
-  </a>
+      <div class="flex flex-col my-4">
+        <label for="email" class="text-lg">Email <RequiredDot /></label>
+        <input type="email" id="email" name="email" class="p-2 rounded-md" placeholder="Enter your email" required />
+      </div>
 
-  <form class="flex flex-col gap-4" id="contact">
+      <div class="flex flex-col my-4">
+        <label for="message" class="text-lg">Message <RequiredDot /></label>
+        <textarea id="message" name="message" class="p-2 rounded-md" required placeholder="Enter your message" rows="5" cols="5"></textarea>
+      </div>
 
-    <div class="flex flex-col my-4">
-      <label for="name" class="text-lg">Name <RequiredDot /></label>
-      <input type="text" id="name" name="name" class="p-2 rounded-md" placeholder="Enter your name" required />
-    </div>
+      <p>
+        Once you click the button once, you are going to be rate limited for 5 minutes or up to 1 hour. <br />
+        Every field marked with <RequiredDot /> is required.
+      </p>
 
-    <div class="flex flex-col  my-4">
-      <label for="email" class="text-lg">Email <RequiredDot /></label>
-      <input type="email" id="email" name="email" class="p-2 rounded-md" placeholder="Enter your email" required />
-    </div>
-
-    <div class="flex flex-col  my-4">
-      <label for="message" class="text-lg">Message <RequiredDot /></label>
-      <textarea id="message" name="message" class="p-2 rounded-md" required placeholder="Enter your message" rows="5" cols="5"></textarea>
-    </div>
-
-
-    <p>
-      Once you click the button once, you are going to be rate limited for 5 minutes or up to 1 hour. <br />
-      Every field marked with <RequiredDot /> is required.
-    </p>
-
-    <button type="submit" id="submit-button">Submit</button>
-  </form>
-
+      <button type="submit" id="submit-button">Submit</button>
+    </form>
+  </PageAnimation>
 </Layout>
 
 <script>
+  import { actions } from 'astro:actions';
+  import { toast } from 'sonner';
 
-import { actions } from "astro:actions";
-import { toast } from "sonner";
+  const form = document.getElementById('contact') as HTMLFormElement;
+  const button = document.getElementById('submit-button') as HTMLButtonElement;
 
-const form = document.getElementById('contact') as HTMLFormElement;
-const button = document.getElementById("submit-button") as HTMLButtonElement;
+  form.onsubmit = async (event) => {
+    event.preventDefault();
 
+    const confirm = window.confirm('Are you sure you wanna submit? You will be rate limited for 5 minutes or up to 1 hour');
+    if (!confirm) return;
 
-form.onsubmit = async (event) => {
-  event.preventDefault();
+    const formData = new FormData(form);
+    const values = Object.fromEntries(formData.entries()) as { name: string; email: string; message: string };
 
-  const confirm = window.confirm("Are you sure you wanna submit? You will be rate limited for 5 minutes or up to 1 hour");
-  if (!confirm) return;
+    const promise = new Promise(async (res, rej) => {
+      button.disabled = true;
+      button.innerText = 'Loading...';
 
-  const formData = new FormData(form);
-  const values = Object.fromEntries(formData.entries()) as { name: string, email: string, message: string };
+      const response = await actions.sendContactWebhook(values);
 
-  
-  const promise = new Promise(async (res, rej) => {
+      button.disabled = false;
+      button.innerText = 'Submit';
 
-    button.disabled = true;
-    button.innerText = "Loading..."
+      if (response.error) return rej(response.error.message);
+      else return res(true);
+    });
 
-    const response = await actions.sendContactWebhook(values);
-
-    button.disabled = false;
-    button.innerText = "Submit"
-
-    if (response.error) return rej(response.error.message)
-    else return res(true)
-  })
-
-  
-  toast.promise(promise, {
-    loading: "Loading...",
-    success: "Submitted! You will here from me soon!",
-    error: (err) => `${err}`
-  })
-}
-
+    toast.promise(promise, {
+      loading: 'Loading...',
+      success: 'Submitted! You will here from me soon!',
+      error: (err) => `${err}`,
+    });
+  };
 </script>

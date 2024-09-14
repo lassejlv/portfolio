@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   SiBun,
   SiCss3,
@@ -28,8 +28,8 @@ import {
   SiTurso,
   SiZedindustries,
   SiAstro,
-} from 'react-icons/si';
-import CoolifyIcon from './CoolifyIcon';
+} from "react-icons/si";
+import CoolifyIcon from "./CoolifyIcon";
 
 const size = 30;
 
@@ -40,139 +40,140 @@ interface Tech {
 
 const techs: Tech[] = [
   {
-    name: 'Node.js',
+    name: "Node.js",
     icon: <SiNodedotjs className="text-green-500" size={size} />,
   },
   {
-    name: 'Bun.js',
+    name: "Bun.js",
     icon: <SiBun className="text-orange-200" size={size} />,
   },
   {
-    name: 'React',
+    name: "React",
     icon: <SiReact className="text-blue-500" size={size} />,
   },
   {
-    name: 'Hono',
+    name: "Hono",
     icon: <SiHono className="text-white hover:text-orange-400" size={size} />,
   },
   {
-    name: 'Express.js',
+    name: "Express.js",
     icon: <SiExpress className="text-white" size={size} />,
   },
   {
-    name: 'Next.js',
+    name: "Next.js",
     icon: <SiNextdotjs className="text-white" size={size} />,
   },
   {
-    name: 'Astro',
+    name: "Astro",
     icon: <SiAstro className="text-orange-500" size={size} />,
   },
   {
-    name: 'Shadcn UI',
+    name: "Shadcn UI",
     icon: <SiShadcnui className="text-white" size={size} />,
   },
   {
-    name: 'Tailwind CSS',
+    name: "Tailwind CSS",
     icon: <SiTailwindcss className="text-teal-500" size={size} />,
   },
   {
-    name: 'CSS',
+    name: "CSS",
     icon: <SiCss3 className="text-blue-500" size={size} />,
   },
   {
-    name: 'HTML',
+    name: "HTML",
     icon: <SiHtml5 className="text-orange-500" size={size} />,
   },
   {
-    name: 'JavaScript',
+    name: "JavaScript",
     icon: <SiJavascript className="text-yellow-500" size={size} />,
   },
   {
-    name: 'TypeScript',
+    name: "TypeScript",
     icon: <SiTypescript className="text-blue-500" size={size} />,
   },
   {
-    name: 'Go',
+    name: "Go",
     icon: <SiGo className="text-sky-400" size={size} />,
   },
   {
-    name: 'MongoDB',
+    name: "MongoDB",
     icon: <SiMongodb className="text-green-500" size={size} />,
   },
   {
-    name: 'PostgreSQL',
+    name: "PostgreSQL",
     icon: <SiPostgresql className="text-blue-400" size={size} />,
   },
   {
-    name: 'Turso',
+    name: "Turso",
     icon: <SiTurso className="text-emerald-500" size={size} />,
   },
   {
-    name: 'Drizzle ORM',
+    name: "Drizzle ORM",
     icon: <SiDrizzle className="text-white hover:text-lime-400" size={size} />,
   },
   {
-    name: 'Prisma ORM',
+    name: "Prisma ORM",
     icon: <SiPrisma className="text-white" size={size} />,
   },
   {
-    name: 'Figma',
+    name: "Figma",
     icon: <SiFigma className="text-indigo-400" size={size} />,
   },
   {
-    name: 'Github',
+    name: "Github",
     icon: <SiGithub className="text-white" size={size} />,
   },
   {
-    name: 'Zed',
+    name: "Zed",
     icon: <SiZedindustries className="text-white" size={size} />,
   },
   {
-    name: 'Visual Studio Code',
+    name: "Visual Studio Code",
     icon: <SiVisualstudiocode className="text-blue-500" size={size} />,
   },
   {
-    name: 'Vercel',
+    name: "Vercel",
     icon: <SiVercel className="text-white" size={size} />,
   },
   {
-    name: 'Netlify',
+    name: "Netlify",
     icon: <SiNetlify className="text-teal-600" size={size} />,
   },
   {
-    name: 'Docker',
+    name: "Docker",
     icon: <SiDocker className="text-blue-500" size={size} />,
   },
   {
-    name: 'Coolify',
+    name: "Coolify",
     icon: <CoolifyIcon />,
   },
   {
-    name: 'Railway',
+    name: "Railway",
     icon: <SiRailway className="text-white " size={size} />,
   },
   {
-    name: 'Ubuntu',
+    name: "Ubuntu",
     icon: <SiUbuntu className="text-orange-500" size={size} />,
   },
 ];
 
 export default function Tech() {
   const [techsList] = useState(techs);
-  const [showAll, setShowAll] = useState(false);
 
   return (
     <div>
-      <button onClick={() => setShowAll(!showAll)}>{showAll ? 'Show less' : 'Show all'}</button>
-
-      <div className="flex flex-wrap mt-8">
-        {techsList.slice(0, showAll ? techs.length : 6).map((skill, index) => (
+      <div className="grid grid-cols-3 md:grid-cols-5">
+        {techsList.map((skill, index) => (
           <div
             key={index}
             className="flex flex-col items-center justify-center p-4 grayscale hover:filter-none transition duration-300 cursor-pointer"
           >
-            {skill.icon}
-            <p className="text-white mt-2">{skill.name}</p>
+            <span className="hover:animate-spin duration-[1s]">
+              {skill.icon}
+            </span>
+            <p className={`text-white mt-2 italic font-semibold`}>
+              {skill.name}
+            </p>
           </div>
         ))}
       </div>
