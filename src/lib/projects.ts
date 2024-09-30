@@ -6,10 +6,9 @@ interface Project {
 
 export const projects: Project[] = [
   {
-    name: 'HRT Stack',
-    description:
-      'A full-stack web application stack for building high-quality and scalable web applications. Uses technologies like ono x TRPC for backend. React, Tailwind & Shadcn UI for frontend (with file based routing).',
-    link: 'https://github.com/lassejlv/hono-trpc',
+    name: "Movie Swiper",
+    description: "Discord bot that allows users to swipe between random movies and add them to a watch-later-list. Used by more than 3000+ people on discord!",
+    link: "https://movieswiper.xyz"
   },
   {
     name: 'NPM Package Search',
